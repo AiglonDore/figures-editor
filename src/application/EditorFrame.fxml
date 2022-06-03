@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="560.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+	<bottom>
+		<BorderPane BorderPane.alignment="TOP_LEFT">
+			<padding>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</padding>
+			<right>
+				<HBox alignment="CENTER_RIGHT" prefWidth="170.0" BorderPane.alignment="CENTER_LEFT">
+					<children>
+						<Label text="x = " />
+						<Label fx:id="cursorXLabel" alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="40.0" text="000" HBox.hgrow="NEVER">
+							<font>
+								<Font name="Courier" size="13.0" />
+							</font>
+						</Label>
+						<Label text=" y = " />
+						<Label fx:id="cursorYLabel" alignment="CENTER_RIGHT" minWidth="-Infinity" prefWidth="40.0" text="000" HBox.hgrow="NEVER">
+							<font>
+								<Font name="Courier" size="13.0" />
+							</font>
+						</Label>
+					</children>
+				</HBox>
+			</right>
+         <center>
+				<Label fx:id="messagesLabel" prefWidth="600.0" text="Messages" BorderPane.alignment="CENTER_LEFT" />
+         </center>
+		</BorderPane>
+	</bottom>
+	<top>
+		<VBox BorderPane.alignment="CENTER">
+			<children>
+				<MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+					<menus>
+						<Menu mnemonicParsing="false" text="Files">
+							<items>
+								<MenuItem disable="true" mnemonicParsing="false" text="Load">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../icons/add_file-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<MenuItem disable="true" mnemonicParsing="false" text="Save">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+											<image>
+												<Image url="@../icons/save-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+								<SeparatorMenuItem mnemonicParsing="false" />
+								<MenuItem mnemonicParsing="false" onAction="#onQuitAction" text="Quit">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0">
+											<image>
+												<Image url="@../icons/shutdown-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</MenuItem>
+							</items>
+						</Menu>
+						<Menu mnemonicParsing="false" text="Figures">
+							<items>
+                        <CheckMenuItem mnemonicParsing="false" onAction="#onEditAction" text="Toggle Edit Mode">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/edit-16.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </CheckMenuItem>
+							</items>
+						</Menu>
+                  <Menu mnemonicParsing="false" text="Filtering">
+                    <items>
+								<CheckMenuItem fx:id="filterToggleCheckMenuItem" mnemonicParsing="false" onAction="#onFilterAction" text="Filter Figures">
+									<graphic>
+										<ImageView fitHeight="16.0" fitWidth="16.0">
+											<image>
+												<Image url="@../icons/filled_filter-16.png" />
+											</image>
+										</ImageView>
+									</graphic>
+								</CheckMenuItem>
+                    </items>
+                  </Menu>
+						<Menu mnemonicParsing="false" text="Preferences">
+							<items>
+								<Menu mnemonicParsing="false" text="Buttons Display">
+									<items>
+										<RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithGraphicsOnlyAction" selected="true" text="Graphics Only">
+											<toggleGroup>
+												<ToggleGroup fx:id="buttonsDisplayGroup" />
+											</toggleGroup>
+										</RadioMenuItem>
+										<RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithTextAndGraphicsAction" text="Text + Graphics" toggleGroup="$buttonsDisplayGroup" />
+										<RadioMenuItem mnemonicParsing="false" onAction="#onDisplayButtonsWithTextOnlyAction" text="Text Only" toggleGroup="$buttonsDisplayGroup" />
+									</items>
+								</Menu>
+                        <Menu mnemonicParsing="false" text="Debug Level">
+                           <items>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelUpToInfoAction" selected="true" text="Info + Warning + Severe">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="debugLevelGroup" />
+                                 </toggleGroup>
+                              </RadioMenuItem>
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelUpToWarningAction" text="Warning + Severe" toggleGroup="$debugLevelGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelUpToSevereAction" text="Severe" toggleGroup="$debugLevelGroup" />
+                              <RadioMenuItem mnemonicParsing="false" onAction="#onSetLoggerLevelOffAction" text="Off" toggleGroup="$debugLevelGroup" />
+                           </items>
+                        </Menu>
+							</items>
+						</Menu>
+					</menus>
+				</MenuBar>
+				<ToolBar VBox.vgrow="NEVER">
+					<items>
+						<ToggleButton fx:id="editToggleButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onEditAction" text="Edition">
+							<graphic>
+								<ImageView fx:id="editToggleImageView" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../icons/edit-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Toggle Edit Mode" />
+							</tooltip>
+						</ToggleButton>
+						<Separator />
+						<ToggleButton fx:id="filterToggleButton" accessibleText="Filter Messages" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onFilterAction" text="Filter">
+							<graphic>
+								<ImageView fx:id="filterToggleImageView">
+									<image>
+										<Image url="@../icons/filled_filter-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Filter Figures according&#10;to List Selection " />
+							</tooltip>
+						</ToggleButton>
+						<Separator />
+						<HBox HBox.hgrow="ALWAYS" />
+						<Button fx:id="quitButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onQuitAction" text="Quit">
+							<graphic>
+								<ImageView>
+									<image>
+										<Image url="@../icons/shutdown-32.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<tooltip>
+								<Tooltip text="Quits application" />
+							</tooltip>
+						</Button>
+					</items>
+				</ToolBar>
+			</children>
+		</VBox>
+	</top>
+	<center>
+		<ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<content>
+				<Pane fx:id="drawingPane" maxHeight="1000.0" maxWidth="1000.0" minHeight="200.0" minWidth="200.0" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: WHITE; -fx-cursor: CROSSHAIR;" />
+			</content>
+		</ScrollPane>
+	</center>
+	<left>
+		<VBox prefWidth="220.0" BorderPane.alignment="CENTER">
+			<children>
+				<GridPane maxHeight="-Infinity" minHeight="-Infinity">
+					<columnConstraints>
+						<ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="98.0" minWidth="10.0" prefWidth="92.0" />
+						<ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="108.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label text="Shape" />
+						<Label text="Line Type" GridPane.rowIndex="3" />
+						<Label text="Line Width" GridPane.rowIndex="4" />
+						<CheckBox fx:id="useFillColor" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onCheckColorsConsistencyAction" selected="true" text="Fill Color" GridPane.rowIndex="1" />
+						<CheckBox fx:id="useEdgeColor" contentDisplay="RIGHT" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onCheckColorsConsistencyAction" selected="true" text="Edge Color" GridPane.rowIndex="2" />
+					</children>
+				</GridPane>
+				<TabPane prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+					<tabs>
+						<Tab closable="false" text="Figures">
+							<content>
+								<VBox>
+									<children>
+										<ListView fx:id="figuresListView" VBox.vgrow="ALWAYS">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#onClearSelectionAction" text="clear Selection">
+                                             <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/delete_database-16.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu></ListView>
+									</children>
+								</VBox>
+							</content>
+						</Tab>
+						<Tab closable="false" text="Infos">
+							<content>
+								<fx:include fx:id="infoPanel" source="./panels/InfoPanel.fxml" />
+							</content>
+						</Tab>
+					</tabs>
+				</TabPane>
+			</children>
+		</VBox>
+	</left>
+</BorderPane>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.cells.FigureCellController">
+   <children>
+      <Label fx:id="label" text="name" HBox.hgrow="ALWAYS">
+         <graphic>
+            <ImageView fx:id="iconView" fitHeight="32.0" fitWidth="32.0">
+               <image>
+                  <Image url="@../../icons/Circle-32.png" />
+               </image>
+            </ImageView>
+         </graphic></Label>
+   </children>
+</HBox>
